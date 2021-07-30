@@ -1,5 +1,6 @@
 package com.aryan.recyclerview
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -7,19 +8,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_view.view.*
 
-class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
+class MyAdapter(private val exampleList : List<DemoItem>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("Not yet implemented")
+
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_view,
+        parent,false)  // REUSABLE
+
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val currentItem = exampleList[position]
+        holder.imageView.setImageResource(currentItem.imageResource)  // FROM DATA CLASS
+        holder.textView1.text = currentItem.text1                      // FROM DATA CLASS
+        holder.textView2.text = currentItem.text2                       // FROM DATA CLASS
+
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = exampleList.size
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
